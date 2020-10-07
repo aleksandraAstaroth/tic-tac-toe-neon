@@ -1,0 +1,187 @@
+             *,
+             *::after,
+             *::before {
+                 box-sizing: border-box;
+             }
+             
+              :root {
+                 --cell-size: 120px;
+                 --mark-size: calc(var(--cell-size) * .6);
+             }
+             
+             body {
+                 margin: 0;
+                 background-color: black;
+                 background-image: url('./img/r0hsUW.png');
+             }
+             
+             section {
+                 width: 100vw;
+                 height: 100vh;
+                 display: block;
+                 background-image: url('./img/transparentblack.png');
+                 background-position: center;
+                 overflow: hidden;
+             }
+             
+             h1 {
+                 text-align: center;
+                 font-family: 'Dancing Script', cursive, sans-serif;
+                 font-size: 5em;
+                 color: rgb(255, 255, 255);
+                 text-shadow: 0 0 10px rgb(255, 255, 255), 0 0 20px rgb(255, 255, 255), 0 0 30px rgb(255, 0, 200), 0 0 35px rgb(255, 0, 200), 0 0 45px rgb(255, 0, 200), 0 0 50px rgb(255, 0, 200), 0 0 55px rgb(255, 0, 200);
+                 text-decoration: underline;
+                 border-radius: 1.5rem;
+                 padding: 10px;
+             }
+             
+             .board {
+                 display: grid;
+                 justify-content: center;
+                 align-content: center;
+                 grid-template-columns: repeat(3, auto);
+                 grid-template-rows: repeat(3, auto);
+                 align-items: center;
+                 justify-items: center;
+                 position: relative;
+             }
+             
+             .cell {
+                 width: var(--cell-size);
+                 height: var(--cell-size);
+                 border: 1px solid white;
+                 display: flex;
+                 justify-content: center;
+                 align-items: center;
+                 position: relative;
+                 cursor: pointer;
+                 box-shadow: 0 0 5px rgb(255, 0, 170), 0 0 10px rgb(255, 0, 170), 0 0 15px rgb(255, 0, 170);
+             }
+             
+             .cell:first-child,
+             .cell:nth-child(2),
+             .cell:nth-child(3) {
+                 border-top: none;
+             }
+             
+             .cell:first-child,
+             .cell:nth-child(4),
+             .cell:nth-child(7) {
+                 border-left: none;
+             }
+             
+             .cell:nth-child(3),
+             .cell:nth-child(6),
+             .cell:last-child {
+                 border-right: none;
+             }
+             
+             .cell:last-child,
+             .cell:nth-child(8),
+             .cell:nth-child(7) {
+                 border-bottom: none;
+             }
+             
+             .cell.x,
+             .cell.circle {
+                 cursor: not-allowed;
+             }
+             
+             .cell.x::before,
+             .cell.x::after,
+             .cell.circle::before {
+                 background-color: white;
+             }
+             
+             .cell.x::before,
+             .cell.x::after {
+                 box-shadow: 0 0 2px rgb(255, 0, 0), 0 0 5px rgb(255, 0, 0), 0 0 10px, 0 0 15px rgb(255, 0, 0), 0 0 20px rgb(255, 0, 0);
+             }
+             
+             .cell.circle::before {
+                 box-shadow: 0 0 2px rgb(255, 255, 255), 0 0 5px rgb(0, 26, 255), 0 0 10px rgb(0, 26, 255), 0 0 15px rgb(0, 26, 255), 0 0 20px rgb(0, 26, 255);
+             }
+             
+             .cell.circle::after {
+                 box-shadow: inset 0 0 2px rgb(255, 255, 255), inset 0 0 5px rgb(0, 26, 255), inset 0 0 10px rgb(0, 26, 255), inset 0 0 15px rgb(0, 26, 255);
+             }
+             
+             .board.x .cell:not(.x):not(.circle):hover::before,
+             .board.x .cell:not(.x):not(.circle):hover::after,
+             .board.circle .cell:not(.x):not(.circle):hover::before {
+                 background-color: rgba(56, 55, 55, 0.582);
+             }
+             /* not(.x):not(.circle):hover- doesn't apply this for cells that already have placed marks*/
+             
+             .cell.x::before,
+             .cell.x::after,
+             .board.x .cell:not(.x):not(.circle):hover::before,
+             .board.x .cell:not(.x):not(.circle):hover::after {
+                 content: '';
+                 width: calc(var(--mark-size) * .05);
+                 height: calc(var(--mark-size) * 1.1);
+                 position: absolute;
+             }
+             
+             .cell.x::before,
+             .board.x .cell:not(.x):not(.circle):hover::before {
+                 transform: rotate(45deg);
+             }
+             
+             .cell.x::after,
+             .board.x .cell:not(.x):not(.circle):hover::after {
+                 transform: rotate(-45deg);
+             }
+             
+             .cell.circle::before,
+             .cell.circle::after,
+             .board.circle .cell:not(.x):not(.circle):hover::before,
+             .board.circle .cell:not(.x):not(.circle):hover::after {
+                 content: '';
+                 position: absolute;
+                 border-radius: 50%;
+             }
+             
+             .cell.circle::before,
+             .board.circle .cell:not(.x):not(.circle):hover::before {
+                 width: var(--mark-size);
+                 height: var(--mark-size);
+             }
+             
+             .cell.circle::after,
+             .board.circle .cell:not(.x):not(.circle):hover::after {
+                 width: calc(var(--mark-size)*.9);
+                 height: calc(var(--mark-size)*.9);
+                 background-color: black;
+             }
+             
+             .winning-message {
+                 display: none;
+                 position: fixed;
+                 top: 0;
+                 left: 0;
+                 right: 0;
+                 bottom: 0;
+                 background-color: rgba(0, 0, 0, .9);
+                 justify-content: center;
+                 align-items: center;
+                 color: white;
+                 font-size: 5rem;
+                 flex-direction: column;
+             }
+             
+             .winning-message button {
+                 font-size: 3rem;
+                 background-color: white;
+                 border: 1 px solid black;
+                 cursor: pointer;
+             }
+             
+             .winning-message button:hover {
+                 color: white;
+                 background-color: black;
+             }
+             
+             .winning-message.show {
+                 display: flex;
+             }
