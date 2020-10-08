@@ -12,14 +12,14 @@
              body {
                  margin: 0;
                  background-color: black;
-                 background-image: url('/img/r0hsUW.png');
+                 background-image: url('../img/r0hsUW.png');
              }
              
              section {
                  width: 100vw;
                  height: 100vh;
                  display: block;
-                 background-image: url('/img/transparentblack.png');
+                 background-image: url('../img/transparentblack.png');
                  background-position: center;
                  overflow: hidden;
              }
